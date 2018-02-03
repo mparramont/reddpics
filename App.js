@@ -1,7 +1,18 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  WebView
+} from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +35,18 @@ export default class App extends React.Component {
       console.error(error);
     }
   }
+
+  onPressListItem(url, title) {
+    this.props.navigation.navigate('Details', {
+      url: url,
+      title: title
+    });
+  }
+
+  static navigationOptions = {
+    title: 'reddpics',
+  };
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -35,13 +58,18 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>reddpics!</Text>
         {/*<Text>{JSON.stringify(this.state.console)}</Text>*/}
         <FlatList
           data={this.state.pics}
           renderItem={({item}) =>
             <TouchableOpacity style={{flexDirection: 'row'}}
-                               onPress={() => this.onPressListItem(item.data.url)}>
+                               onPress={() =>
+                                 this.onPressListItem(
+                                   item.data.url,
+                                   item.data.title
+                                 )
+                               }
+            >
               <Image style={{width: '33%', height: 100 }}
                      source={{uri: item.data.thumbnail}}/>
               <View style={{width: '67%', height: 100, backgroundColor: 'skyblue'}}>
@@ -57,12 +85,50 @@ export default class App extends React.Component {
                   <Text style={{width: '25%'}}>{item.data.num_comments}</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           }
         />
-        <Text>Shake to open the developer menu.</Text>
       </View>
     );
+  }
+}
+
+class DetailsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return {
+      title: params ? params.title : null,
+    }
+  };
+
+  render() {
+    const { params } = this.props.navigation.state;
+    const url = params ? params.url : null;
+
+    return (
+      <WebView source={{uri: url}}/>
+    );
+  }
+}
+
+const RootStack = StackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
   }
 }
 
