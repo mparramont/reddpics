@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -39,7 +39,26 @@ export default class App extends React.Component {
         {/*<Text>{JSON.stringify(this.state.console)}</Text>*/}
         <FlatList
           data={this.state.pics}
-          renderItem={({item}) => <Text>{item.data.url}</Text>}
+          renderItem={({item}) =>
+            <TouchableOpacity style={{flexDirection: 'row'}}
+                               onPress={() => this.onPressListItem(item.data.url)}>
+              <Image style={{width: '33%', height: 100 }}
+                     source={{uri: item.data.thumbnail}}/>
+              <View style={{width: '67%', height: 100, backgroundColor: 'skyblue'}}>
+                <View>
+                  <Text>{item.data.created}</Text>
+                </View>
+                <View>
+                  <Text>{item.data.title}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{width: '50%'}}>{item.data.author}</Text>
+                  <Text style={{width: '25%'}}>{item.data.score}</Text>
+                  <Text style={{width: '25%'}}>{item.data.num_comments}</Text>
+                </View>
+              </View>
+            </View>
+          }
         />
         <Text>Shake to open the developer menu.</Text>
       </View>
