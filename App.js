@@ -9,25 +9,23 @@ export default class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    return fetch('https://api.reddit.com/r/pics/new.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          console: responseJson,
-          pics: responseJson.data.children,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  async componentDidMount() {
+  try {
+    let response = await fetch('https://api.reddit.com/r/pics/new.json');
+    let responseJson = await response.json();
+    this.setState({
+      isLoading: false,
+      console: responseJson,
+      pics: responseJson.data.children
+    });
+  } catch (error) {
+    console.error(error);
   }
-
+}
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
+        <View style={styles.container}>
           <ActivityIndicator />
         </View>
       );
