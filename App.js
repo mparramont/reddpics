@@ -10,18 +10,20 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-  try {
-    let response = await fetch('https://api.reddit.com/r/pics/new.json');
-    let responseJson = await response.json();
-    this.setState({
-      isLoading: false,
-      console: responseJson,
-      pics: responseJson.data.children
-    });
-  } catch (error) {
-    console.error(error);
+    try {
+      let response = await fetch('https://api.reddit.com/r/pics/new.json');
+      let responseJson = await response.json();
+      let pics = responseJson.data.children
+      pics.map(pic => pic.key = pic.data.id)
+      this.setState({
+        isLoading: false,
+        console: responseJson,
+        pics: pics
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
   render() {
     if (this.state.isLoading) {
       return (
