@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ActivityIndicator,
   Button,
@@ -9,23 +9,23 @@ import {
   TouchableOpacity,
   View,
   WebView
-} from 'react-native';
-import { StackNavigator } from 'react-navigation';
+} from "react-native";
+import { StackNavigator } from "react-navigation";
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true
-    }
+    };
   }
 
   async componentDidMount() {
     try {
-      let response = await fetch('https://api.reddit.com/r/pics/new.json');
+      let response = await fetch("https://api.reddit.com/r/pics/new.json");
       let responseJson = await response.json();
-      let pics = responseJson.data.children
-      pics.map(pic => pic.key = pic.data.id)
+      let pics = responseJson.data.children;
+      pics.map(pic => (pic.key = pic.data.id));
       this.setState({
         isLoading: false,
         console: responseJson,
@@ -37,14 +37,14 @@ class HomeScreen extends React.Component {
   }
 
   onPressListItem(url, title) {
-    this.props.navigation.navigate('Details', {
+    this.props.navigation.navigate("Details", {
       url: url,
       title: title
     });
   }
 
   static navigationOptions = {
-    title: 'reddpics',
+    title: "reddpics"
   };
 
   render() {
@@ -61,32 +61,38 @@ class HomeScreen extends React.Component {
         {/*<Text>{JSON.stringify(this.state.console)}</Text>*/}
         <FlatList
           data={this.state.pics}
-          renderItem={({item}) =>
-            <TouchableOpacity style={{flexDirection: 'row'}}
-                               onPress={() =>
-                                 this.onPressListItem(
-                                   item.data.url,
-                                   item.data.title
-                                 )
-                               }
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() =>
+                this.onPressListItem(item.data.url, item.data.title)
+              }
             >
-              <Image style={{width: '33%', height: 100 }}
-                     source={{uri: item.data.thumbnail}}/>
-              <View style={{width: '67%', height: 100, backgroundColor: 'skyblue'}}>
+              <Image
+                style={{ width: "33%", height: 100 }}
+                source={{ uri: item.data.thumbnail }}
+              />
+              <View
+                style={{
+                  width: "67%",
+                  height: 100,
+                  backgroundColor: "skyblue"
+                }}
+              >
                 <View>
                   <Text>{item.data.created}</Text>
                 </View>
                 <View>
                   <Text>{item.data.title}</Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{width: '50%'}}>{item.data.author}</Text>
-                  <Text style={{width: '25%'}}>{item.data.score}</Text>
-                  <Text style={{width: '25%'}}>{item.data.num_comments}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ width: "50%" }}>{item.data.author}</Text>
+                  <Text style={{ width: "25%" }}>{item.data.score}</Text>
+                  <Text style={{ width: "25%" }}>{item.data.num_comments}</Text>
                 </View>
               </View>
             </TouchableOpacity>
-          }
+          )}
         />
       </View>
     );
@@ -98,31 +104,29 @@ class DetailsScreen extends React.Component {
     const { params } = navigation.state;
 
     return {
-      title: params ? params.title : null,
-    }
+      title: params ? params.title : null
+    };
   };
 
   render() {
     const { params } = this.props.navigation.state;
     const url = params ? params.url : null;
 
-    return (
-      <WebView source={{uri: url}}/>
-    );
+    return <WebView source={{ uri: url }} />;
   }
 }
 
 const RootStack = StackNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomeScreen
     },
     Details: {
-      screen: DetailsScreen,
-    },
+      screen: DetailsScreen
+    }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: "Home"
   }
 );
 
@@ -136,8 +140,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
