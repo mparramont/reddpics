@@ -11,6 +11,8 @@ import {
   WebView
 } from "react-native";
 import { StackNavigator, TabNavigator, TabBarBottom } from "react-navigation";
+import Moment from "react-moment";
+import "moment-timezone";
 
 class PicsScreen extends React.Component {
   constructor(props) {
@@ -94,7 +96,9 @@ class PicsScreen extends React.Component {
                 }}
               >
                 <View>
-                  <Text>{item.data.created}</Text>
+                  <Moment fromNow unix tz="Europe/Madrid" element={Text}>
+                    {item.data.created_utc}
+                  </Moment>
                 </View>
                 <View>
                   <Text>{item.data.title}</Text>
