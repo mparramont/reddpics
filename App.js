@@ -10,9 +10,9 @@ import {
   View,
   WebView
 } from "react-native";
-import { StackNavigator } from "react-navigation";
+import { StackNavigator, TabNavigator, TabBarBottom } from "react-navigation";
 
-class HomeScreen extends React.Component {
+class PicsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,9 @@ class HomeScreen extends React.Component {
 
   async componentDidMount() {
     try {
-      let response = await fetch("https://api.reddit.com/r/pics/new.json");
+      let sorting = this.props.navigation.state.routeName.toLowerCase();
+      let url = "https://api.reddit.com/r/pics/" + sorting + ".json";
+      let response = await fetch(url);
       let responseJson = await response.json();
       let pics = responseJson.data.children;
       pics.map(pic => (pic.key = pic.data.id));
@@ -43,8 +45,12 @@ class HomeScreen extends React.Component {
     });
   }
 
-  static navigationOptions = {
-    title: "reddpics"
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return {
+      title: params ? params.title : null
+    };
   };
 
   render() {
@@ -58,7 +64,6 @@ class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        {/*<Text>{JSON.stringify(this.state.console)}</Text>*/}
         <FlatList
           data={this.state.pics}
           renderItem={({ item }) => (
@@ -116,25 +121,67 @@ class DetailsScreen extends React.Component {
   }
 }
 
-const RootStack = StackNavigator(
+class HotScreen extends PicsScreen {}
+
+class NewScreen extends PicsScreen {}
+
+class TopScreen extends PicsScreen {}
+
+class ControversialScreen extends PicsScreen {}
+
+const HotStack = StackNavigator({
+  Hot: { screen: HotScreen },
+  Details: { screen: DetailsScreen }
+});
+
+const NewStack = StackNavigator({
+  New: { screen: NewScreen },
+  Details: { screen: DetailsScreen }
+});
+
+const TopStack = StackNavigator({
+  Top: { screen: TopScreen },
+  Details: { screen: DetailsScreen }
+});
+
+const ControversialStack = StackNavigator({
+  Controversial: { screen: ControversialScreen },
+  Details: { screen: DetailsScreen }
+});
+
+export default TabNavigator(
   {
-    Home: {
-      screen: HomeScreen
-    },
-    Details: {
-      screen: DetailsScreen
-    }
+    Hot: { screen: HotStack },
+    New: { screen: NewStack },
+    Top: { screen: TopStack },
+    Controversial: { screen: ControversialStack }
   },
   {
-    initialRouteName: "Home"
+    // navigationOptions: ({ navigation }) => ({
+    //   tabBarIcon: ({ focused, tintColor }) => {
+    //     const { routeName } = navigation.state;
+    //     let iconName;
+    //     if (routeName === "Home") {
+    //       iconName = `ios-information-circle${focused ? "" : "-outline"}`;
+    //     } else if (routeName === "Settings") {
+    //       iconName = `ios-options${focused ? "" : "-outline"}`;
+    //     }
+    //
+    //     // You can return any component that you like here! We usually use an
+    //     // icon component from react-native-vector-icons
+    //     return <Ionicons name={iconName} size={25} color={tintColor} />;
+    //   }
+    // }),
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: "bottom",
+    tabBarOptions: {
+      activeTintColor: "tomato",
+      inactiveTintColor: "gray"
+    },
+    animationEnabled: true,
+    swipeEnabled: true
   }
 );
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
