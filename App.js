@@ -20,10 +20,17 @@ class PicsScreen extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchPicsFromReddit();
+  }
+
+  async fetchPicsFromReddit() {
+    this.setState({
+      isLoading: true
+    });
+    let sorting = this.props.navigation.state.routeName.toLowerCase();
+    let url = "https://api.reddit.com/r/pics/" + sorting + ".json";
     try {
-      let sorting = this.props.navigation.state.routeName.toLowerCase();
-      let url = "https://api.reddit.com/r/pics/" + sorting + ".json";
       let response = await fetch(url);
       let responseJson = await response.json();
       let pics = responseJson.data.children;
@@ -66,6 +73,8 @@ class PicsScreen extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={this.state.pics}
+          refreshing={this.state.isLoading}
+          onRefresh={() => this.fetchPicsFromReddit()}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={{ flexDirection: "row" }}
