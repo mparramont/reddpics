@@ -26,6 +26,7 @@ test("renders correctly", async () => {
   }`;
   fetch.mockResponseSuccess(mockResponse);
   const tree = await renderer.create(<TabNavigator />).toJSON();
+
   expect(filterKeys(tree)).toMatchSnapshot();
 });
 

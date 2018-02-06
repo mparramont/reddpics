@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderBottomWidth": 1,
+      "borderColor": "tomato",
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 4,
+      "paddingRight": 4,
+      "paddingTop": 8,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <Image
+    source={
+      Object {
+        "uri": "https://b.thumbs.redditmedia.com/-LqcIIv3SFEuUvqKArGvIHxuasQPU6EApGZKmo6YLog.jpg",
+      }
+    }
+    style={
+      Object {
+        "height": 100,
+        "width": "33%",
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "height": 100,
+        "justifyContent": "space-between",
+        "padding": 5,
+        "width": "67%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "marginLeft": "auto",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        dateTime={"2018-02-04T15:48:46.000Z"}
+        ellipsizeMode="tail"
+      >
+        2 days ago
+      </Text>
+    </View>
+    <View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 18,
+          }
+        }
+      >
+        some nice pic!
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+        omnicot
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+        19440
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+        422
+      </Text>
+    </View>
+  </View>
+</View>
+`;
