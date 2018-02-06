@@ -12,9 +12,20 @@ export default class Pic extends React.Component {
   }
 
   render() {
+    let title = this.props.item.data.title;
+    if (title.length > 50) title = title.substring(0, 50) + "…";
+
     return (
       <TouchableOpacity
-        style={{ flexDirection: "row" }}
+        style={{
+          flexDirection: "row",
+          paddingTop: 8,
+          paddingLeft: 4,
+          paddingRight: 4,
+          paddingBottom: 8,
+          borderColor: "tomato",
+          borderBottomWidth: 1
+        }}
         onPress={() =>
           this.onPressListItem(
             this.props.item.data.url,
@@ -30,23 +41,27 @@ export default class Pic extends React.Component {
           style={{
             width: "67%",
             height: 100,
-            backgroundColor: "skyblue"
+            padding: 5,
+            justifyContent: "space-between"
           }}
         >
-          <View>
+          <View style={{ marginLeft: "auto" }}>
             <Moment fromNow unix tz="Europe/Madrid" element={Text}>
               {this.props.item.data.created_utc}
             </Moment>
           </View>
           <View>
-            <Text>{this.props.item.data.title}</Text>
+            <Text style={{ fontSize: 18 }}>{title}</Text>
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ width: "50%" }}>{this.props.item.data.author}</Text>
-            <Text style={{ width: "25%" }}>{this.props.item.data.score}</Text>
-            <Text style={{ width: "25%" }}>
-              {this.props.item.data.num_comments}
-            </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text>{this.props.item.data.author}</Text>
+            <Text>{this.props.item.data.score}</Text>
+            <Text>{this.props.item.data.num_comments}</Text>
           </View>
         </View>
       </TouchableOpacity>
