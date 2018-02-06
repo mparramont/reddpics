@@ -53,6 +53,7 @@ export default class PicsScreen extends React.Component {
       );
     }
 
+    // TODO improvement: add infinite scroll
     return (
       <View style={styles.container}>
         <FlatList

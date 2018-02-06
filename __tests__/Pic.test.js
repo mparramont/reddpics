@@ -1,8 +1,6 @@
 import "react-native";
 import React from "react";
 import Pic from "../Pic";
-
-// Note: test renderer must be required after react-native.
 import renderer from "react-test-renderer";
 
 let navigation = { navigate: jest.fn() };
