@@ -18,11 +18,12 @@
   "jest": {
     "preset": "jest-expo",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/assetsTransformer.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
     },
-    "setupFiles": ["./config/jest/globalFetch.js"]
+    "setupFiles": [
+      "./config/jest/globalFetch.js"
+    ]
   },
   "dependencies": {
     "expo": "^25.0.0",
@@ -31,6 +32,7 @@
     "react": "16.2.0",
     "react-moment": "^0.7.0",
     "react-native": "0.52.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.28"
   }
 }
