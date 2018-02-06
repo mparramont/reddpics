@@ -15,6 +15,7 @@ export default class Pic extends React.Component {
     let title = this.props.item.data.title;
     if (title.length > 50) title = title.substring(0, 50) + "…";
 
+    // TODO: extract styles to objects, if needed for sharing/ proper CSS architecture
     return (
       <TouchableOpacity
         style={{
