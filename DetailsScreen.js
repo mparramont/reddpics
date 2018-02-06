@@ -14,6 +14,6 @@ export default class DetailsScreen extends React.Component {
     const { params } = this.props.navigation.state;
     const url = params ? params.url : null;
 
-    return <WebView source={{ uri: url }} />;
+    return <WebView startInLoadingState={true} source={{ uri: url }} />;
   }
 }
