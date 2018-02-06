@@ -41,21 +41,24 @@ export default TabNavigator(
     Controversial: { screen: ControversialStack }
   },
   {
-    // navigationOptions: ({ navigation }) => ({
-    //   tabBarIcon: ({ focused, tintColor }) => {
-    //     const { routeName } = navigation.state;
-    //     let iconName;
-    //     if (routeName === "Home") {
-    //       iconName = `ios-information-circle${focused ? "" : "-outline"}`;
-    //     } else if (routeName === "Settings") {
-    //       iconName = `ios-options${focused ? "" : "-outline"}`;
-    //     }
-    //
-    //     // You can return any component that you like here! We usually use an
-    //     // icon component from react-native-vector-icons
-    //     return <Ionicons name={iconName} size={25} color={tintColor} />;
-    //   }
-    // }),
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === "Hot") {
+          iconName = "ios-flame";
+        } else if (routeName === "New") {
+          iconName = "ios-sunny";
+        } else if (routeName === "Top") {
+          iconName = "ios-star";
+        } else if (routeName === "Controversial") {
+          iconName = "ios-help-circle";
+        }
+        iconName += focused ? "" : "-outline";
+
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      }
+    }),
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
     tabBarOptions: {
