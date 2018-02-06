@@ -5,31 +5,23 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import DetailsScreen from "./DetailsScreen";
 import PicsScreen from "./PicsScreen";
 
-class HotScreen extends PicsScreen {}
-
-class NewScreen extends PicsScreen {}
-
-class TopScreen extends PicsScreen {}
-
-class ControversialScreen extends PicsScreen {}
-
 const HotStack = StackNavigator({
-  Hot: { screen: HotScreen },
+  Hot: { screen: PicsScreen },
   Details: { screen: DetailsScreen }
 });
 
 const NewStack = StackNavigator({
-  New: { screen: NewScreen },
+  New: { screen: PicsScreen },
   Details: { screen: DetailsScreen }
 });
 
 const TopStack = StackNavigator({
-  Top: { screen: TopScreen },
+  Top: { screen: PicsScreen },
   Details: { screen: DetailsScreen }
 });
 
 const ControversialStack = StackNavigator({
-  Controversial: { screen: ControversialScreen },
+  Controversial: { screen: PicsScreen },
   Details: { screen: DetailsScreen }
 });
 
